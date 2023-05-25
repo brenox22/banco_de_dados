@@ -1,0 +1,92 @@
+create database Gerenciador_de_Salarios;
+use Gerenciador_de_Salarios;
+
+create table funcionarios(
+IdFuncionario int not null auto_increment,
+IdCargo int not null,
+Nome varchar(40) not null,
+Sobrenome varchar(40) not null,
+CPF int not null,
+Contato varchar(255),
+Primary Key (IdFuncionario)
+);
+
+create table cargos(
+IdCargo int not null auto_increment,
+NomeCargo varchar(40) not null,
+SalarioCargo float,
+Primary Key (IdCargo));
+
+
+create table setores(
+IdSetor int not null auto_increment,
+NomeSetor varchar(40) not null,
+Primary Key(IdSetor));
+
+create table salarios(
+IdSalario int not null,
+IdCargo int not null,
+IdFuncionario int not null,
+ValorSalario float not null,
+primary key (IdSalario)
+);
+
+
+create table FolhaPagamento(
+IdFolha int not null auto_increment,
+IdFuncionario int not null,
+primary key (IdFolha)
+);
+create table funcionariosetor(
+IdFuncionario int not null,
+IdSetor int not null
+);
+
+alter table salarios
+add foreign key (IdCargo) references cargos(IdCargo),
+add foreign key (IdFuncionario) references funcionarios(IdFuncionario);
+
+alter table folhapagamento
+add foreign key (IdFuncionario) references funcionarios(IdFuncionario);
+
+alter table funcionarios
+add foreign key (IdCargo) references cargos(IdCargo);
+
+alter table funcionariosetor
+add foreign key (IdFuncionario) references funcionarios(IdFuncionario),
+add foreign key (IdSetor) references setores(IdSetor);
+
+alter table funcionarios
+add foreign key (IdCargo) references cargos(IdCargo);
+
+
+insert into cargos(NomeCargo, SalarioCargo)
+values ('Gerente', '6000');
+insert into cargos(NomeCargo, SalarioCargo)
+values ('Encarregado', '3000');
+insert into cargos(NomeCargo, SalarioCargo)
+values ('Peao', '1500');
+
+insert into funcionarios(Nome, Sobrenome, CPF, Contato, IdCargo)
+VALUES ('Erick', 'Rodrigues', '00000000001', '40028922', '1');
+insert into funcionarios(Nome, Sobrenome, CPF, Contato, IdCargo)
+VALUES ('Breno', 'Rosindo', '00000000002', '08007777000', '1');
+insert into funcionarios(Nome, Sobrenome, CPF, Contato, IdCargo)
+values ('Sergio', 'Lopes', '00000000003', '20049999', '3');
+
+insert into salarios()VALUES ('1', '1', '2', '6000');
+insert into salarios()VALUES ('2', '1', '1', '6000');
+insert into salarios()VALUES ('3', '3', '3', '1500');
+
+insert into setores()VALUES ('1', 'Administrativo');
+insert into setores()VALUES ('2', 'Técnico');
+insert into setores()VALUES ('3', 'Auxiliar Geral');
+
+
+insert into funcionariosetor()VALUES ('1', '1');
+insert into funcionariosetor()VALUES ('2', '1');
+insert into funcionariosetor()VALUES ('3', '3');
+
+insert into folhapagamento()VALUES ('1','1');
+insert into folhapagamento()VALUES ('2', '2');
+insert into folhapagamento()VALUES ('3', '3');
